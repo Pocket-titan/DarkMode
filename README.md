@@ -1,6 +1,8 @@
 # DarkMode
 Dark mode for Pluto 🎉
 
+![How to use](https://user-images.githubusercontent.com/4435990/95021467-76416380-0671-11eb-88a5-8c3bfd23a530.gif)
+
 Add this cell to your Pluto notebook:
 ```julia
 begin
