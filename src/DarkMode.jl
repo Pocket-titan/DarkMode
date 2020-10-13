@@ -209,7 +209,7 @@ dark_mode_html() = html"""
 	}
 
 	nav#at_the_top img {
-		filter: invert(1) contrast(0.6) hue-rotate(90deg) saturate(1.3);
+		 filter: invert(1) hue-rotate(180deg) brightness(0.8) saturate(1.1);
 	}
 
 	nav#at_the_top button.toggle_export,
@@ -251,8 +251,24 @@ dark_mode_html() = html"""
 		filter: brightness(5);
 	}
 
+	nav#at_the_top img {
+		filter: invert(1) hue-rotate(180deg) contrast(0.85);
+	    }
+
+	jlerror > header {
+		color: hsl(348, 40%, 90%);
+	}
+
+	pluto-filepicker .cm-s-material-palenight .cm-operator {
+		color: #ff3b00;
+	}
+
 	jltree::before, jltree::after {
 		filter: invert(1);
+	}
+
+	header.show_export header, header.show_export b {
+		color: initial;
 	}
 
 	cell>button,
