@@ -3,13 +3,14 @@ Dark mode for Pluto 🎉
 
 NOTE: This is a work in progress, feel free to make a PR if you see any badly visible colors which I missed! You can experiment by using your browser console (`Ctrl+Shift+I` or `Cmd+Alt+I`), selecting elements & manually adding style rules, which you can put into a `html"<style> $css_rules_go_here </style>"` to always enable them in your notebook. Please make a PR if you find any! The colors themselves don't really matter, just make sure it's legible. This way we can sort of crowdsource the workload :)
 
+### Update: this gif is outdated, see code below!
 ![How to use](https://user-images.githubusercontent.com/4435990/95021467-76416380-0671-11eb-88a5-8c3bfd23a530.gif)
 
 Add this cell to your Pluto notebook:
 ```julia
 begin
     import Pkg
-    Pkg.add(url="https://github.com/Pocket-titan/DarkMode")
+    Pkg.add(PackageSpec(url="https://github.com/Pocket-titan/DarkMode"))
     import DarkMode
     DarkMode.enable()
 end
