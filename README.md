@@ -13,6 +13,7 @@ begin
     Pkg.add(PackageSpec(url="https://github.com/Pocket-titan/DarkMode"))
     import DarkMode
     DarkMode.enable()
+    # OR DarkMode.Toolbox(theme="default")
 end
 ```
 
@@ -24,3 +25,57 @@ See the function signature in the Pluto docs (type `?DarkMode.enable` or click o
 For a list of all available CodeMirror themes, see [here](https://codemirror.net/theme/). For a list of all CodeMirror options, see [here](https://codemirror.net/doc/manual.html#config).
 
 NOTE: if you remove the `DarkMode.enable()` call, you have to refresh your page in order to go back to the light theme.
+
+---
+### CSS Dark Mode
+
+A CSS Mode is provided on top of `DarkMode.enable()`. 
+
+You can enable CSS mode typing `DarkMode.CSSDarkMode("zenburn")` (where "zenburn" is a theme, from the same theme list). Optionally, you can pass a keyword argument to darken Pluto, like this: `DarkMode.CSSDarkMode("zenburn", darkenPluto=true)`.
+
+### Pluto Opt-Ins
+
+`DarkMode.Toolbox()` provides a set of opt-in utilities, if you want them.
+
+- `PresentationMode()` is the familiar to many presentation mode. Use it to add the arrows bottom right
+- `Ligatures()` optionally activates ligatures.
+- `WidthOverDocs()` activates a bigger width for the editor, while hiding LiveDocs
+
+Pass a boolean argument if you want the feature enabled the next time you open your notebook.
+
+You can also pass defaults to the `DarkMode.Toolbox()` using keyword arguments.
+
+Signature is the following: 
+```
+DarkMode.Toolbox(ligatures=false,
+		presentation=false,
+		theme="lucario",
+		darkenPluto=false,
+		width="normal")
+```
+
+(use `width = "wide"` to enable `WideOverDocs()`)
+
+#### Quickstart for CSS Dark Mode & Opt-Ins is the following:
+
+```
+begin
+    import Pkg
+    Pkg.add(url="https://github.com/pankgeorg/DarkMode")
+    import DarkMode
+    DarkMode.Toolbox(theme="lucario")
+end
+```
+
+### Limitations/Caveats
+
+1. Some themes may not play well with live docs code (some classes are missing, but you can test using the arrows on the dropdown!)
+2. CSSDarkMode's default is *not* to darken the whole UI but only `code` blocks! Pass `darkenPluto=true` to get a really dark Pluto!
+3. Please use each Opt-in once in each notebook!
+4. Wide mode hides docs (what will probably change in the future)
+
+### Next steps
+
+- Make this a toolbar?
+- Integrate parts in Pluto?
+
