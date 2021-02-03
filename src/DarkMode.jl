@@ -229,6 +229,33 @@ dark_mode_html() = html"""
     	color: hsl(0, 0%, 85%);
 	}
 
+	/* Table stylings, credits to: https://github.com/zuckberj */
+
+	/* for the fixed header */
+	table.pluto-table .schema-names th, table.pluto-table .schema-types th:first-child {
+			background-color: inherit;
+	}
+
+	/* for the rows numbers */
+	table.pluto-table tbody th:first-child {
+			background-color: inherit;
+	}
+	/* for the hovering header*/
+	table.pluto-table .schema-types th {
+			background-color: inherit;
+			color: hsl(0, 0%, 90%);
+	}
+
+	table.pluto-table {
+		border: 2px solid hsla(0, 0%, 100%, 0.2);
+		border-left: none;
+		border-right: none;
+	}
+
+	table.pluto-table .schema-types th {
+		border-bottom: 1px solid hsla(0, 0%, 100%, 0.2);
+	}
+
 	/* CODEMIRROR STYLE */
 
 	/* Custom Jelmar options */
@@ -289,7 +316,7 @@ function PresentationMode(enabled=false)
 		title="Previous slide">
  		<span></span>
 	</button>
-	<button 
+	<button
 		class="changeslide next"
 		onclick="window.plutoOptIns.go_to_next_slide()"
 		title="Next slide">
@@ -388,7 +415,7 @@ body.presentation pluto-output h2 {
             positions.find((y) => y - 10 > window.pageYOffset)
         )
     }
-	
+
 	window.plutoOptIns = window.plutoOptIns || {}
 	window.plutoOptIns.present = present
 	window.plutoOptIns.go_previous_slide = go_previous_slide
@@ -424,7 +451,7 @@ function WidthOverDocs(enabled=false)
 </style>
 <script>
 	const toggle_width = function(t) {
-		t.checked 
+		t.checked
 		? document.body.classList.add("width-over-docs")
 		: document.body.classList.remove("width-over-docs")
 	}
@@ -461,14 +488,14 @@ function Ligatures(enabled=false)
 </style>
 <script>
 	const toggle_ligatures = function(t) {
-		t.checked  
+		t.checked
 		? document.body.classList.add("ligatures")
 		: document.body.classList.remove("ligatures")
 	} // ---  |> --> -> 0 1 * a g r `
 	window.plutoOptIns = window.plutoOptIns || {}
 	window.plutoOptIns.toggle_ligatures = toggle_ligatures
 	$(init)
-</script> 
+</script>
 """)
 end
 
@@ -539,7 +566,7 @@ function CSSDarkMode(defaultTheme; darkenPluto=false)
   "yonce",
   "zenburn"
 ]
-	
+
 darkstyle = """
 	body {
 		background-color: hsl(0, 0%, 32%);
@@ -650,6 +677,28 @@ darkstyle = """
 		background-color: hsl(0, 0%, 13%);
     	color: hsl(0, 0%, 85%);
 	}
+	/* Table stylings, credits to: https://github.com/zuckberj */
+	/* for the fixed header */
+	table.pluto-table .schema-names th, table.pluto-table .schema-types th:first-child {
+			background-color: inherit;
+	}
+	/* for the rows numbers */
+	table.pluto-table tbody th:first-child {
+			background-color: inherit;
+	}
+	/* for the hovering header*/
+	table.pluto-table .schema-types th {
+			background-color: inherit;
+			color: hsl(0, 0%, 90%);
+	}
+	table.pluto-table {
+		border: 2px solid hsla(0, 0%, 100%, 0.2);
+		border-left: none;
+		border-right: none;
+	}
+	table.pluto-table .schema-types th {
+		border-bottom: 1px solid hsla(0, 0%, 100%, 0.2);
+	}
 	/* CODEMIRROR STYLE */
 	/* Custom) Jelmar options */
 	/*
@@ -716,9 +765,9 @@ function Toolbox(; ligatures=false,
 		theme="lucario",
 		darkenPluto=false,
 		width="normal")
-	
+
 	return md"""
-Name 				| Usage 				| Tool  
+Name 				| Usage 				| Tool
 :---  				| :--- 					| :---
 More Width 			| `WidthOverDocs(false)` 	| $(WidthOverDocs(width == "wide"))
 Presentation Mode 	| `PresentationMode(false)`	| $(PresentationMode(presentation))
