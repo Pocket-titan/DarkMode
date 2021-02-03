@@ -220,6 +220,14 @@ dark_mode_html() = html"""
 		background-color: hsl(0, 0%, 10%);
 	}
 
+	pluto-helpbox div.markdown pre {
+		border: none !important;
+	}
+
+	pluto-helpbox div.markdown a {
+		color: inherit;
+	}
+
 	footer a {
 		color: hsl(0, 0%, 95%);
 	}
@@ -256,21 +264,26 @@ dark_mode_html() = html"""
 		border-bottom: 1px solid hsla(0, 0%, 100%, 0.2);
 	}
 
+	/* Custom scrollbar */
+
+	*::-webkit-scrollbar {
+		width: 14px !important;
+	}
+
+	*::-webkit-scrollbar-track {
+		background-color: hsl(0, 0%, 10%) !important;
+	}
+
+	*::-webkit-scrollbar-thumb {
+		box-shadow: inset 0 0 6px rgba(0, 0, 0, .3) !important;
+		background-color: hsla(0, 0%, 17%) !important;
+	}
+
 	/* CODEMIRROR STYLE */
 
 	/* Custom Jelmar options */
 
 	/*
-
-	::-webkit-scrollbar {
-		width: 14px;
-		background-color: hsl(0, 0%, 15%);
-	}
-
-	::-webkit-scrollbar-thumb {
-		box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-		background-color: hsla(0, 0%, 10%);
-	}
 
 	pre.CodeMirror-line {
 		padding-left: 0.8em !important;
@@ -293,6 +306,26 @@ dark_mode_html() = html"""
 	*/
 </style>
 """
+
+helpbox_codestyle_script(theme) = HTML("""
+<script type="text/javascript">
+	async function fetchStyle(theme) {
+		try {
+			const css = await fetch("https://cdn.jsdelivr.net/npm/codemirror@5.55.0/theme/" + theme + ".css");
+			const text = await css.text();
+			const newText = text.replaceAll(`.cm-s-\${theme}.CodeMirror`, `pluto-helpbox div.markdown pre`).replaceAll(`.cm-s-\${theme}`, 'pluto-helpbox code.cm-s-default.cm-s-default');
+			const style = document.createElement('style');
+			const secretId = "__very_special_darkmode_id";
+			style.id = secretId;
+			document.querySelector(`[id=\${secretId}]`)?.remove();
+			style.innerText = newText;
+			document.head.appendChild(style);
+		} catch (e) { console.error(e) }
+	}
+
+	fetchStyle("$(theme)");
+</script>
+""")
 
 # ╔═╡ 1cc41890-38ce-11eb-025d-d5d397968bc3
 function PresentationMode(enabled=false)
@@ -578,7 +611,7 @@ darkstyle = """
 	*/
 	body > header, footer, pluto-helpbox > header {
     	background-color: hsl(0, 0%, 8%);
-		color: hsl(0, 0%, 90%);
+			color: hsl(0, 0%, 90%);
 	}
 	body > header * {
 		color: white;
@@ -670,6 +703,12 @@ darkstyle = """
 		color: hsl(0, 0%, 90%);
 		background-color: hsl(0, 0%, 10%);
 	}
+	pluto-helpbox div.markdown pre {
+		border: none !important;
+	}
+	pluto-helpbox div.markdown a {
+		color: inherit;
+	}
 	footer a {
 		color: hsl(0, 0%, 95%);
 	}
@@ -699,17 +738,20 @@ darkstyle = """
 	table.pluto-table .schema-types th {
 		border-bottom: 1px solid hsla(0, 0%, 100%, 0.2);
 	}
+	/* Custom scrollbar */
+	*::-webkit-scrollbar {
+		width: 14px !important;
+	}
+	*::-webkit-scrollbar-track {
+		background-color: hsl(0, 0%, 10%) !important;
+	}
+	*::-webkit-scrollbar-thumb {
+		box-shadow: inset 0 0 6px rgba(0, 0, 0, .3) !important;
+		background-color: hsla(0, 0%, 17%) !important;
+	}
 	/* CODEMIRROR STYLE */
 	/* Custom) Jelmar options */
 	/*
-	::-webkit-scrollbar {
-		width: 14px;
-		background-color: hsl(0, 0%, 15%);
-	}
-	::-webkit-scrollbar-thumb {
-		box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-		background-color: hsla(0, 0%, 10%);
-	}
 	pre.CodeMirror-line {
 		padding-left: 0.8em !important;
 		padding-right: 0.8em !important;
@@ -820,7 +862,6 @@ cm_theme_html(theme, cm_config=Dict()) = begin
 				// When a new cell gets added, we still have to wait for CM to init :/
 				const cmObserver = new MutationObserver((mutations, observer) => {
 					mutations.forEach(mutation => {
-						console.log(mutation);
 						if (mutation.type === 'childList') {
 							mutation.addedNodes?.forEach(node => {
 								let cm = node?.CodeMirror;
@@ -843,7 +884,6 @@ cm_theme_html(theme, cm_config=Dict()) = begin
 								if (!input) {
 									return
 								}
-								console.log(input);
 								cmObserver.observe(input, {
 									subtree: false,
 									childList: true,
@@ -906,7 +946,7 @@ function enable(;theme="material-palenight", cm_config=Dict())
 			themes)
 	end
 
-	return HTML("""$(cm_theme_html(theme, cm_config).content)$(dark_mode_html().content)""")
+	return HTML("""$(cm_theme_html(theme, cm_config).content)$(dark_mode_html().content)$(helpbox_codestyle_script(theme).content)""")
 end
 
 # ╔═╡ Cell order:
