@@ -228,6 +228,10 @@ dark_mode_html() = html"""
 		color: inherit;
 	}
 
+	pluto-helpbox header button {
+		filter: invert(1);
+	}
+
 	footer a {
 		color: hsl(0, 0%, 95%);
 	}
