@@ -16,6 +16,7 @@ begin
     # OR DarkMode.Toolbox(theme="default")
 end
 ```
+or install the package from the julia commandline using `] add https://github.com/Pocket-titan/DarkMode`, and then import it in Pluto using `import DarkMode`.
 
 `DarkMode.enable` optionally takes a `theme` argument (which is the name of a codemirror theme), and a `cm_config` `Dict` allowing you to provide custom CodeMirror options. Like this:
 ```julia
